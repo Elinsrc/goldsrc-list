@@ -1,0 +1,38 @@
+name: Update GoldSrc server list
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-server-list
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install aiohttp
+
+      - env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+        run: python generate_list.py
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/v1/servers
+          if ! git diff --cached --quiet; then
+            git commit -m "update"
+            git push
+          fi
