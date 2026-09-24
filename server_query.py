@@ -9,7 +9,16 @@ import time
 import aiohttp
 import asyncio_dgram
 
-GOLDSRC_APPIDS = [10, 70]
+GOLDSRC_APPIDS = [
+    10,  # Counter-Strike
+    20,  # Team Fortress Classic
+    30,  # Day of Defeat
+    40,  # Deathmatch Classic
+    50,  # Half-Life: Opposing Force
+    60,  # Ricochet
+    70,  # Half-Life
+    80,  # Counter-Strike: Condition Zero
+]
 
 HDR = b"\xff\xff\xff\xff"
 INFO = HDR + b"TSource Engine Query\x00"
