@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: pip install aiohttp
+      - run: pip install aiohttp asyncio_dgram
 
       - env:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
